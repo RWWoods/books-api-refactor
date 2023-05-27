@@ -38,13 +38,16 @@ const resolvers = {
       return { token, user };
     },
 
-    saveBook: async (parent, { _id, techNum }) => {
-      const vote = await Matchup.findOneAndUpdate(
-        { _id },
-        { $inc: { [`tech${techNum}_votes`]: 1 } },
-        { new: true }
-      );
-      return vote;
+    saveBook: async (parent, { book }, context) => {
+      if (context.user) {
+        const updateUser = await User.findOneAndUpdate(
+            {_id: context.user._id},
+            {$addToSet: {savedBooks: book} },
+            {new: true}
+        )
+        return updateUser;
+      }
+      throw new AuthenticationError('You need to be logged in!');
     },
 
     removeBook: async (parent, { bookId }, context) => {
