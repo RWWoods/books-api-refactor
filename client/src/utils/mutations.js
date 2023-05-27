@@ -36,21 +36,39 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_BOOK = gql`
-  mutation createMatchup($tech1: String!, $tech2: String!) {
-    createMatchup(tech1: $tech1, tech2: $tech2) {
+  mutation saveBook($authors: String!, $description: String!, $title: String!, $image: String, link: String) {
+    saveBook(authors: $authors, description: $description, title: $title, image: $image, link: $link) {
       _id
-      tech1
-      tech2
+      username
+      email
+      savedBooks {
+        authors
+        bookId
+        image
+        link
+        title
+        description
+
+    }
     }
   }
 `;
 
 export const REMOVE_BOOK = gql`
-  mutation createMatchup($tech1: String!, $tech2: String!) {
-    createMatchup(tech1: $tech1, tech2: $tech2) {
+  mutation removeBook($bookId: ID!) {
+    removeBook(bookId: $bookId) {
       _id
-      tech1
-      tech2
+      username
+      email
+      savedBooks {
+        authors
+        bookId
+        image
+        link
+        title
+        description
+
+    }
     }
   }
 `;
