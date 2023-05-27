@@ -16,6 +16,7 @@ const typeDefs = gql`
     username: String!
     email: String!
     password: String!
+    bookCount: Int
     savedBooks: [Book]
   }
 
@@ -23,7 +24,7 @@ const typeDefs = gql`
     token: ID!
     user: User
   }
-  
+
   type Query {
     me: User
   }
